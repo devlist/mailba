@@ -3,12 +3,13 @@ package mailba
 import (
 	"encoding/base64"
 	"github.com/stretchr/testify/assert"
+	"os"
 	"testing"
 )
 
 func TestMandrillSend(t *testing.T) {
 	assert := assert.New(t)
-	sender, err := NewMandrill("Ai4SC5Uv5BQ7gc6N2gvKPA")
+	sender, err := NewMandrill(os.Getenv("MANDRILL_API_KEY"))
 	assert.NoError(err)
 
 	mail := NewMail("witoo@plimble.com", "Tester")
