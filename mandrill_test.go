@@ -23,7 +23,7 @@ func TestMandrillSend(t *testing.T) {
 
 func TestMandrillTemplateSend(t *testing.T) {
 	assert := assert.New(t)
-	sender, err := NewMandrill("Ai4SC5Uv5BQ7gc6N2gvKPA")
+	sender, err := NewMandrill(os.Getenv("MANDRILL_API_KEY"))
 	assert.NoError(err)
 
 	mail := NewMail("witoo@plimble.com", "Tester")
