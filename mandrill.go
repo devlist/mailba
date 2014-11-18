@@ -60,7 +60,7 @@ func (m *Mandrill) Send(mail *Mail, config *Config) error {
 	if mail.template != "" {
 		contentVar := []gochimp.Var{}
 		msg := m.mapMsg(mail)
-		_, err = m.api.MessageSendTemplate(`ams-resetpassword`, contentVar, msg, true)
+		_, err = m.api.MessageSendTemplate(mail.template, contentVar, msg, true)
 	} else {
 		msg := m.mapMsg(mail)
 		_, err = m.api.MessageSend(msg, true)
