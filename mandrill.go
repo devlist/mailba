@@ -49,20 +49,21 @@ func (m *Mandrill) mapMsg(mail *Mail) gochimp.Message {
 func (m *Mandrill) Send(mail *Mail, config *Config) error {
 	var err error
 
-	// msg.AddMergeVar(gochimp.MergeVars{
-	// 	Recipient: email,
-	// 	Vars: []gochimp.Var{
-	// 		gochimp.Var{"name", name},
-	// 		gochimp.Var{"password", newPwd},
-	// 	},
-	// })
+	msg := m.mapMsg(mail)
+
+	for email, vars := range mail.mergevars {
+		msg.AddMergeVar(gochimp.MergeVars{
+			Recipient: email,
+			Vars:      vars,
+		})
+	}
+
+	msg.GlobalMergeVars = mail.globalvars
 
 	if mail.template != "" {
 		contentVar := []gochimp.Var{}
-		msg := m.mapMsg(mail)
 		_, err = m.api.MessageSendTemplate(mail.template, contentVar, msg, true)
 	} else {
-		msg := m.mapMsg(mail)
 		_, err = m.api.MessageSend(msg, true)
 	}
 

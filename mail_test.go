@@ -1,6 +1,7 @@
 package mailba
 
 import (
+	"github.com/mattbaird/gochimp"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -53,4 +54,30 @@ func TestCreateMail(t *testing.T) {
 	mail.AddAttachment("text/plain", "test2.txt", "hello world")
 	assert.Equal(&file{"text/plain", "test2.txt", "hello world"}, mail.files[1])
 	assert.Len(mail.files, 2)
+
+	mail.AddGlobalVar("firstname", "art")
+	mail.AddGlobalVar("catname", "silverbag")
+	assert.Equal([]gochimp.Var{
+		gochimp.Var{"firstname", "art"},
+		gochimp.Var{"catname", "silverbag"},
+	}, mail.globalvars)
+	assert.Len(mail.globalvars, 2)
+
+	mail.AddMergeVar("witoohxx@gmail.com", "firstname", "art")
+	mail.AddMergeVar("witoohxx@gmail.com", "catname", "silverbag")
+	mail.AddMergeVar("momoxx@gmail.com", "firstname", "momo")
+	mail.AddMergeVar("momoxx@gmail.com", "catname", "goldbag")
+	assert.Len(mail.mergevars, 2)
+	assert.Equal(map[string][]gochimp.Var{
+		"witoohxx@gmail.com": []gochimp.Var{
+			gochimp.Var{"firstname", "art"},
+			gochimp.Var{"catname", "silverbag"},
+		},
+
+		"momoxx@gmail.com": []gochimp.Var{
+			gochimp.Var{"firstname", "momo"},
+			gochimp.Var{"catname", "goldbag"},
+		},
+	}, mail.mergevars)
+
 }
