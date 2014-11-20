@@ -4,9 +4,10 @@ NAME=mailba
 INTERFACE=Sender
 PKG=github.com/plimble
 
-mkdir -p mock_$NAME
 mockgen \
-  -destination=mock_$NAME/mock.go \
+  -destination=mock.go \
+  --self_package=$PKG/$NAME \
+  -package=$NAME \
   $PKG/$NAME \
   $INTERFACE
 
