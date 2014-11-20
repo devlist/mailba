@@ -1,7 +1,8 @@
-package mailba
+package mailba_test
 
 import (
 	"encoding/base64"
+	. "github.com/plimble/mailba"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
