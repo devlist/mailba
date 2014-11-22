@@ -20,27 +20,27 @@ func NewMandrill(apiKey string) (*Mandrill, error) {
 
 func (m *Mandrill) mapMsg(mail *Mail) gochimp.Message {
 	msg := gochimp.Message{
-		Subject:   mail.subject,
-		FromEmail: mail.from.email,
-		FromName:  mail.from.name,
+		Subject:   mail.Subject,
+		FromEmail: mail.From.Email,
+		FromName:  mail.From.Name,
 	}
 
-	msg.Html = mail.content
+	msg.Html = mail.Content
 
-	for _, v := range mail.to {
-		msg.AddRecipients(gochimp.Recipient{Email: v.email, Name: v.name, Type: "to"})
+	for _, v := range mail.To {
+		msg.AddRecipients(gochimp.Recipient{Email: v.Email, Name: v.Name, Type: "to"})
 	}
 
-	for _, v := range mail.cc {
-		msg.AddRecipients(gochimp.Recipient{Email: v.email, Name: v.name, Type: "cc"})
+	for _, v := range mail.CC {
+		msg.AddRecipients(gochimp.Recipient{Email: v.Email, Name: v.Name, Type: "cc"})
 	}
 
-	for _, v := range mail.bcc {
-		msg.AddRecipients(gochimp.Recipient{Email: v.email, Name: v.name, Type: "bcc"})
+	for _, v := range mail.BCC {
+		msg.AddRecipients(gochimp.Recipient{Email: v.Email, Name: v.Name, Type: "bcc"})
 	}
 
-	for _, v := range mail.files {
-		msg.AddAttachments(gochimp.Attachment{Content: v.content, Name: v.name, Type: v.mime})
+	for _, v := range mail.Files {
+		msg.AddAttachments(gochimp.Attachment{Content: v.Content, Name: v.Name, Type: v.Mime})
 	}
 
 	return msg
@@ -51,18 +51,18 @@ func (m *Mandrill) Send(mail *Mail, config *Config) error {
 
 	msg := m.mapMsg(mail)
 
-	for email, vars := range mail.mergevars {
+	for email, vars := range mail.Mergevars {
 		msg.AddMergeVar(gochimp.MergeVars{
 			Recipient: email,
 			Vars:      vars,
 		})
 	}
 
-	msg.GlobalMergeVars = mail.globalvars
+	msg.GlobalMergeVars = mail.Globalvars
 
-	if mail.template != "" {
+	if mail.Template != "" {
 		contentVar := []gochimp.Var{}
-		_, err = m.api.MessageSendTemplate(mail.template, contentVar, msg, true)
+		_, err = m.api.MessageSendTemplate(mail.Template, contentVar, msg, true)
 	} else {
 		_, err = m.api.MessageSend(msg, true)
 	}
