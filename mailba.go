@@ -1,6 +1,6 @@
 package mailba
 
-//go:generate mockery -name Sender
+//go:generate mockgen -destination=mock_mailba/mock_sender.go github.com/plimble/mailba Sender
 
 type Config map[string]interface{}
 
