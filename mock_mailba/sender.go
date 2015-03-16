@@ -3,15 +3,15 @@ package mock_mailba
 import "github.com/plimble/mailba"
 import "github.com/stretchr/testify/mock"
 
-type Sender struct {
+type MockSender struct {
 	mock.Mock
 }
 
-func NewSender() *Sender {
-	return &Sender{}
+func NewMockSender() *MockSender {
+	return &MockSender{}
 }
 
-func (m *Sender) Send(mail *mailba.Mail, config *mailba.Config) error {
+func (m *MockSender) Send(mail *mailba.Mail, config *mailba.Config) error {
 	ret := m.Called(mail, config)
 
 	r0 := ret.Error(0)
