@@ -11,8 +11,8 @@ func NewMockSender() *MockSender {
 	return &MockSender{}
 }
 
-func (m *MockSender) Send(mail *mailba.Mail, config *mailba.Config) error {
-	ret := m.Called(mail, config)
+func (m *MockSender) Send(mail *mailba.Mail) error {
+	ret := m.Called(mail)
 
 	r0 := ret.Error(0)
 
