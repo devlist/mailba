@@ -26,7 +26,7 @@ func TestMandrillSend(t *testing.T) {
 	mail.AddTo("witooh@icloud.com", "Jack")
 
 	mail.AddAttachment("text/plain", "test.txt", base64.StdEncoding.EncodeToString([]byte("jack")))
-	err = sender.Send(mail, nil)
+	err = sender.Send(mail)
 	assert.NoError(err)
 }
 
@@ -40,6 +40,6 @@ func TestMandrillTemplateSend(t *testing.T) {
 	mail.SetSubject("hello world")
 	mail.AddTo("xier.kokis@gmail.com", "Xier")
 	mail.AddAttachment("text/plain", "test.txt", base64.StdEncoding.EncodeToString([]byte("jack")))
-	err = sender.Send(mail, nil)
+	err = sender.Send(mail)
 	assert.NoError(err)
 }

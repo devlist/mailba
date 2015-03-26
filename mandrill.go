@@ -46,7 +46,7 @@ func (m *Mandrill) mapMsg(mail *Mail) gochimp.Message {
 	return msg
 }
 
-func (m *Mandrill) Send(mail *Mail, config *Config) error {
+func (m *Mandrill) Send(mail *Mail) error {
 	var err error
 
 	msg := m.mapMsg(mail)
