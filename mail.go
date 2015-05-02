@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/mattbaird/gochimp"
 	"github.com/plimble/utils/errors2"
+	"gopkg.in/mgo.v2/bson"
 )
 
 //go:generate msgp
@@ -102,6 +103,15 @@ func (m *Mail) AddGlobalVar(key string, val string) *Mail {
 
 func (m *Mail) JSON() ([]byte, error) {
 	b, err := json.Marshal(m)
+	if err != nil {
+		return nil, errors2.NewInternal(err.Error())
+	}
+
+	return b, nil
+}
+
+func (m *Mail) BSON() ([]byte, error) {
+	b, err := bson.Marshal(m)
 	if err != nil {
 		return nil, errors2.NewInternal(err.Error())
 	}
