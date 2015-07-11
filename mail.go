@@ -7,7 +7,6 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-//go:generate msgp
 //msgp:ignore File Files
 
 type Recipient struct {
