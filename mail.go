@@ -3,7 +3,7 @@ package mailba
 import (
 	"encoding/json"
 	"github.com/mattbaird/gochimp"
-	"github.com/plimble/utils/errors2"
+	"github.com/plimble/errors"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -103,7 +103,7 @@ func (m *Mail) AddGlobalVar(key string, val string) *Mail {
 func (m *Mail) JSON() ([]byte, error) {
 	b, err := json.Marshal(m)
 	if err != nil {
-		return nil, errors2.NewInternal(err.Error())
+		return nil, errors.InternalError(err.Error())
 	}
 
 	return b, nil
@@ -112,7 +112,7 @@ func (m *Mail) JSON() ([]byte, error) {
 func (m *Mail) BSON() ([]byte, error) {
 	b, err := bson.Marshal(m)
 	if err != nil {
-		return nil, errors2.NewInternal(err.Error())
+		return nil, errors.InternalError(err.Error())
 	}
 
 	return b, nil

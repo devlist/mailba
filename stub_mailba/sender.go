@@ -1,7 +1,7 @@
 package stub_mailba
 
 import (
-	"errors"
+	"github.com/plimble/errors"
 	"github.com/plimble/mailba"
 )
 
@@ -13,11 +13,11 @@ func NewStubSender() *StubSender {
 
 func (s *StubSender) Send(mail *mailba.Mail) error {
 	if mail == nil {
-		return errors.New("no mail object")
+		return errors.InternalError("no mail object")
 	}
 
 	if mail.Subject == "error" {
-		return errors.New("send mail failed")
+		return errors.InternalError("send mail failed")
 	}
 
 	return nil

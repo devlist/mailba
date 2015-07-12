@@ -2,7 +2,7 @@ package mailba
 
 import (
 	"github.com/mattbaird/gochimp"
-	"github.com/plimble/utils/errors2"
+	"github.com/plimble/errors"
 )
 
 type Mandrill struct {
@@ -12,7 +12,7 @@ type Mandrill struct {
 func NewMandrill(apiKey string) (*Mandrill, error) {
 	api, err := gochimp.NewMandrill(apiKey)
 	if err != nil {
-		return nil, err
+		return nil, errors.InternalError(err.Error())
 	}
 
 	return &Mandrill{api}, nil
@@ -68,7 +68,7 @@ func (m *Mandrill) Send(mail *Mail) error {
 	}
 
 	if err != nil {
-		return errors2.NewInternal(err.Error())
+		return errors.InternalError(err.Error())
 	}
 
 	return nil
