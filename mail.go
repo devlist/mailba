@@ -1,10 +1,7 @@
 package mailba
 
 import (
-	"encoding/json"
 	"github.com/mattbaird/gochimp"
-	"github.com/plimble/errors"
-	"gopkg.in/mgo.v2/bson"
 )
 
 //msgp:ignore File Files
@@ -98,22 +95,4 @@ func (m *Mail) AddMergeVar(email, key string, val string) *Mail {
 func (m *Mail) AddGlobalVar(key string, val string) *Mail {
 	m.Globalvars = append(m.Globalvars, gochimp.Var{key, val})
 	return m
-}
-
-func (m *Mail) JSON() ([]byte, error) {
-	b, err := json.Marshal(m)
-	if err != nil {
-		return nil, errors.InternalError(err.Error())
-	}
-
-	return b, nil
-}
-
-func (m *Mail) BSON() ([]byte, error) {
-	b, err := bson.Marshal(m)
-	if err != nil {
-		return nil, errors.InternalError(err.Error())
-	}
-
-	return b, nil
 }
