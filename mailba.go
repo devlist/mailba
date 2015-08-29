@@ -1,6 +1,6 @@
 package mailba
 
-//go:generate mockery -name Sender
+//go:generate mockery -name Sender -output mock_mailba
 
 type Config map[string]interface{}
 
