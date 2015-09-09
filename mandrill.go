@@ -49,6 +49,10 @@ func (m *Mandrill) mapMsg(mail *Mail) gochimp.Message {
 func (m *Mandrill) Send(mail *Mail) error {
 	var err error
 
+	if mail.From.Email == "" || mail.From.Name == "" {
+		return errors.InternalError("Missing from name and email")
+	}
+
 	msg := m.mapMsg(mail)
 
 	for email, vars := range mail.Mergevars {

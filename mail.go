@@ -36,13 +36,12 @@ type Mail struct {
 	Globalvars Vars            `json:"gv" msg:"gv"`
 }
 
-func NewMail(defaultFromEmail, defaultFromName string) *Mail {
+func NewMail() *Mail {
 	return &Mail{
 		To:        Recipients{},
 		CC:        Recipients{},
 		BCC:       Recipients{},
 		Files:     Files{},
-		From:      Recipient{defaultFromEmail, defaultFromName},
 		Mergevars: make(map[string]Vars),
 	}
 }
@@ -57,7 +56,7 @@ func (m *Mail) SetSubject(subject string) *Mail {
 	return m
 }
 
-func (m *Mail) SetFrom(name, email string) *Mail {
+func (m *Mail) SetFrom(email, name string) *Mail {
 	m.From = Recipient{email, name}
 	return m
 }

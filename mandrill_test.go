@@ -12,7 +12,8 @@ func TestMandrillSend(t *testing.T) {
 	sender, err := NewMandrill(os.Getenv("MANDRILL_API_KEY"))
 	assert.NoError(err)
 
-	mail := NewMail("witoo@plimble.com", "Tester")
+	mail := NewMail()
+	mail.SetFrom("witoo@plimble.com", "Tester")
 	mail.SetSubject("hello world")
 	mail.SetContent("<h1>hello</h1><p>*|data1|*</p><p>*|data2|*</p>")
 
@@ -35,7 +36,8 @@ func TestMandrillTemplateSend(t *testing.T) {
 	sender, err := NewMandrill(os.Getenv("MANDRILL_API_KEY"))
 	assert.NoError(err)
 
-	mail := NewMail("witoo@plimble.com", "Tester")
+	mail := NewMail()
+	mail.SetFrom("witoo@plimble.com", "Tester")
 	mail.SetTemplate("test_offer")
 	mail.SetSubject("hello world")
 	mail.AddTo("xier.kokis@gmail.com", "Xier")

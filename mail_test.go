@@ -8,8 +8,7 @@ import (
 
 func TestCreateMail(t *testing.T) {
 	assert := assert.New(t)
-	mail := NewMail("Tester", "witoo@plimble.com")
-	assert.Equal(Recipient{"Tester", "witoo@plimble.com"}, mail.From)
+	mail := NewMail()
 
 	mail.SetSubject("subject")
 	assert.Equal("subject", mail.Subject)
@@ -20,7 +19,7 @@ func TestCreateMail(t *testing.T) {
 	mail.SetContent("<html>")
 	assert.Equal("<html>", mail.Content)
 
-	mail.SetFrom("John Doe", "test@test.com")
+	mail.SetFrom("test@test.com", "John Doe")
 	assert.Equal(Recipient{"test@test.com", "John Doe"}, mail.From)
 
 	mail.AddTo("to1@to.com", "To1")
