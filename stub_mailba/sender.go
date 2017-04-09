@@ -2,7 +2,7 @@ package stub_mailba
 
 import (
 	"github.com/plimble/errors"
-	"github.com/plimble/mailba"
+	"github.com/devlist/mailba"
 )
 
 type StubSender struct{}

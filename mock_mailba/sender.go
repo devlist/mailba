@@ -1,6 +1,6 @@
 package mock_mailba
 
-import "github.com/plimble/mailba"
+import "github.com/devlist/mailba"
 import "github.com/stretchr/testify/mock"
 
 type Sender struct {
