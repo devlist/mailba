@@ -63,6 +63,10 @@ func (m *Mandrill) Send(mail *Mail) error {
 	}
 
 	msg.GlobalMergeVars = mail.Globalvars
+	msg.MergeLanguage = mail.MergeLanguage
+	if msg.MergeLanguage == "" {
+		msg.MergeLanguage = "handlebars"
+	}
 
 	if mail.Template != "" {
 		contentVar := []gochimp.Var{}
